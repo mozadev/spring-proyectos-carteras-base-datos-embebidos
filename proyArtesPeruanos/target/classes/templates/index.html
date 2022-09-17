@@ -1,0 +1,69 @@
+
+
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+
+    <title>VENTANA  PRINCIPAL DE LA EMPRESA  ARTES PERUANOS</title>
+
+<!--    <link   href="<%=request.getContextPath()%>/css/screen.css"  rel="stylesheet"  type="text/css"   >-->
+    <!-- Custom styles for this template -->
+    <link th:href="@{screen.css}" rel="stylesheet}">
+
+    <script>
+        function listar() {
+            document.form.action = "<%=request.getContextPath()%>/CarteraServlet";
+            document.form.method = "GET";
+            document.form.opcion.value = "EntrarAJSPlistar";
+            document.form.submit();
+
+        }
+        function registro() {
+            document.form.action = "<%=request.getContextPath()%>/CarteraServlet";
+            document.form.method = "GET";
+            document.form.opcion.value = "EntraraJSPRegistro";
+            document.form.submit();
+
+        }
+    </script>
+</head>
+
+<body>
+
+<center>
+    <form name="form">
+        <input type="hidden"   name="opcion" value="">
+        <table  class="FondoTabla" >
+            <tr>
+                <td>
+                    <p><img src="cartera.jpg" width="205" height="207" /></p>
+
+                </td>
+            </tr>
+
+            <tr>
+                <td  class="tituloFormulario" align="center" >MENU DE OPCIONES </td>
+            </tr>
+            <tr>
+<!--               <td> <a  th:href="@{/cartera/registrarCarteraManual }">  <button onclick="registro()">Insertar Datos de Carteras</button></td>-->
+               <td> <a  th:href="@{/cartera/registrarCarteraManual }">  <input type="button"  style="color:#2E468F;font-weight: bold" value="Insertar Datos de Carteras"  class="boton"  onclick="regresar()"/></td>
+<!--               <td> <a class="tituloFormulario" th:href="@{/cartera/registrarCarteraManual }"> Insertar Datos de Carteras</a> </td>-->
+
+            </tr>
+            <tr>
+<!--               <td> <a  th:href="@{/cartera/consultarCarteraManual }">  <button  onclick="listar()">Consultar Datos de la Carteras</button></td>-->
+               <td> <a  th:href="@{/cartera/consultarCarteraManual }">  <input type="button"  style="color:#2E468F;font-weight: bold" value="Consultar Datos de la Carteras"  class="boton"  onclick="regresar()"/></td>
+<!--                <td> <a class="tituloFormulario" th:href="@{/cartera/consultarCarteraManual }"> Consultar datos de la Cartera</a> </td>-->
+            </tr>
+
+        </table>
+    </form>
+</center>
+</body>
+</html>

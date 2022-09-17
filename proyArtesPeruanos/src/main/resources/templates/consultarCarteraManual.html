@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+
+    <title>Documento sin t&iacute;tulo</title>
+    <link th:href="@{screen.css}" rel="stylesheet}">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+        function regresar() {
+            document.form.action = "<c:url value =" / CarteraServlet
+            "/>";
+            document.form.method = "GET";
+            document.form.opcion.value = "RegresarDeConsulta";
+            document.form.submit();
+        }
+
+
+        function buscar() {
+            var txttipocartera1 = document.form.txttipocartera.value;
+
+
+            if (txttipocartera1.length == 0) {
+                alert("Elige el tipo de Cartera por Favor");
+                document.form.txttipocartera.focus();
+                return;
+            } else {
+                document.form.action = "<c:url value =" / CarteraServlet
+                "/>";
+                document.form.method = "GET";
+                document.form.opcion.value = "COMBOXBUSCAR";
+
+                document.form.submit();
+
+            }
+
+        }
+
+        $(function () {
+            $('.FondoTabla').click(function (e) {
+                if ($(this).hasClass('row-selected')) {
+                    $(this).addClass('other-clic')
+                } else {
+                    cleanTr()
+                    $(this).addClass('row-selected')
+                }
+            })
+
+
+            function cleanTr() {
+                $('.row-selected').each(function (index, element) {
+                    $(element).removeClass('row-selected')
+                    $(element).removeClass('other-clic')
+                })
+            }
+        })
+
+    </script>
+
+</head>
+
+<body>
+
+<form name="form" th:action="@{/cartera/search}" method="post" enctype="multipart/form-data">
+    <!--    <input type="hidden"   name="opcion" value="">-->
+
+    <table align="center" border="2" class="FondoTabla">
+        <tr>
+            <td colspan="5" style="color:white;background-color:#2E468F;font-weight: 600" class="tituloTabla">Listado de
+                Carteras Hechas a Mano
+            </td>
+        </tr>
+        <tr>
+
+            <td class="tituloFormulario" style="color:#2E468F;font-weight: bold">Tipo :</td>
+            <td class="tituloFormulario">
+
+
+                <select name="CODTIPCAR" class="input_text">
+                    <!--                        <option value="">&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>-->
+
+                    <option th:each="tipoCartera:${listaTipoCartera}"
+                            th:value="${tipoCartera.id}"
+                            th:text="${tipoCartera.NOMBTIPCAR}">
+                    </option>
+                    <!--                        <c:forEach var="em" items="${listartipos}">-->
+                    <!--                            <option value="${em.getCODTIPOCARTERA()}">${em.getTIPOCARTERA2()}</option>-->
+                    <!--                        </c:forEach>-->
+                </select>
+
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" align="center">
+                <a  th:href="@{/cartera/consultarCarteraManual }"><input type="submit" style="color:#2E468F;font-weight: bold" value="Buscar" class="boton"
+                />
+            </td>
+        </tr>
+
+    </table>
+    <table align="center" border="2">
+        <tr style="color:white;background-color:#2E468F;font-weight: 600">
+            <td class="tituloTabla">C&oacute;digo Cartera</td>
+            <td class="tituloTabla">Descripcion</td>
+            <td class="tituloTabla">Tipo Cartera</td>
+            <td class="tituloTabla">Precio</td>
+            <td class="tituloTabla">Fecha de Registro</td>
+        </tr>
+
+        <!--        <c:forEach var="em" items="${listarCarteras}">-->
+        <!--            <tr class="FondoTabla" >-->
+        <!--                <td>${em.getCODCARTERA()}</td>-->
+        <!--                <td>${em.getNOMCARTERA()}</td>-->
+        <!--                <td>${em.getTIPOCARTERA()}</td>-->
+        <!--                <td>${em.getPRECIO()}</td>-->
+        <!--                <td>${em.getFECHA()}</td>-->
+        <!--            </tr>-->
+        <!--        </c:forEach>-->
+
+        <tr  th:each="variable:${listaCarteraBuscada}" class="FondoTabla">
+            <td th:text="${variable.id}"></td>
+            <td th:text="${variable.DESCRIPCAR}"></td>
+            <td th:text="${variable.CODTIPCAR}"></td>
+            <td th:text="${variable.PRECIOCAR}"></td>
+            <td th:text="${variable.FECHACAR}"></td>
+
+        </tr>
+
+
+        <tr>
+            <td colspan="5" align="center">
+                <a th:href="@{/index}"> <input type="button" style="color:#2E468F;font-weight: bold"
+                                               value="Regresar" class="boton" onclick="regresar()"/>
+            </td>
+        </tr>
+
+    </table>
+
+
+</form>
+</body>
+</html>
+
